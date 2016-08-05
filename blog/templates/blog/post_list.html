@@ -1,17 +1,18 @@
-<html>
-<head>
-    <title>Django Girls Blog</title>
-</head>
-<body>
-    <div>
-        <h1><a href="/">Django Girls Blog</a></h1>
+{% for post in posts %}
+...这个中间是对于文章post的循环，这个不变...
+{% endfor %}
+{% if page %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if posts.has_previous %}
+                <a href="?page={{ posts.previous_page_number }}">previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+            </span>
+            {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}">next</a>
+            {% endif %}
+        </span>
     </div>
-    {% for post in posts %}
-    <div>
-        <p>published: {{ post.published_date }}</p>
-            <h1><a href="">{{ post.title }}</a></h1>
-            <p>{{ post.text|linebreaks }}</p>
-    </div>
-    {% endfor %}
-</body>
-</html>
+    {% endif %}
